@@ -1,0 +1,39 @@
+server:
+  port: 9501
+spring:
+  application:
+    name: oauth2-api
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 127.0.0.1:8848
+    sentinel:
+      transport:
+        dashboard: localhost:8090
+        port: 8090
+      # 服务启动直接建立心跳连接
+      eager: true
+      datasource:
+        ds1:
+          # 支持多种持久化数据源：file、nacos、zk、apollo、redis、consul
+          nacos:
+            # nacos服务地址
+            server-addr: localhost:8848
+            # 命名空间，根据环境配置
+            namespace: public
+            # 不同规则设置不同groupId
+            group-id: SENTINEL_FLOW_GROUP
+            data-id: ${spring.application.name}-flow-rules.json
+            # 规则类型：flow、degrade、param-flow、system、authority
+            rule-type: flow
+            data-type: json
+            username: nacos
+            password: nacos
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+logging:
+  level:
+    com.alibaba.nacos: DEBUG

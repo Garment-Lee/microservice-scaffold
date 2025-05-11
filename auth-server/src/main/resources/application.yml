@@ -1,0 +1,17 @@
+server:
+  port: 9401
+
+spring:
+  profiles:
+    active: dev
+  application:
+    name: auth-server
+    cloud:
+      nacos:
+        discovery:
+          server-addr: localhost:8848
+logging:
+  level:
+    org.springframework.security: DEBUG
+    org.springframework.security.oauth2: DEBUG
+    org.springframework.web: DEBUG
